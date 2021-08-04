@@ -34,6 +34,39 @@ class Graph:
                 prev = temp
                 temp = temp.next
 
+    def bfs(self,root):
+        visited = [False]* self.V
+
+        queue = []
+
+        queue.append(root)
+        visited[root] = True
+
+        while(queue):
+            node = queue.pop(0)
+            print('{} '.format(node))
+
+            temp = self.graph[node]
+            while temp:
+                if(visited[temp.vertex] == False):
+                    queue.append(temp.vertex)
+                    visited[temp.vertex] = True
+                temp = temp.next
+
+    def dfsTraverse(self,root,visited):
+        visited[root] = True
+        print(root,end=" ")
+
+        node = self.graph[root]
+        while node:
+            if(visited[node.vertex]==False):
+                self.dfsTraverse(node.vertex,visited)
+            node = node.next
+
+    def dfs(self, root):
+        visited = [False] * self.V
+        self.dfsTraverse(root,visited)
+
     def printGraph(self):
 
         for i in range(self.V):
@@ -55,3 +88,5 @@ if __name__ == "__main__":
     graph.addEdge(3, 4)
     graph.deleteEdge(1,3)
     graph.printGraph()
+    graph.bfs(0)
+    graph.dfs(0)
